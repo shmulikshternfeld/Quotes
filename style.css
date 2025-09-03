@@ -1,0 +1,55 @@
+/* עיצוב כללי לדף */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* עיצוב הקונטיינר הראשי של הציטוט */
+#quote-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+}
+
+/* עיצוב הטקסט של הציטוט */
+#quote {
+    font-size: 1.5em; /* 24px */
+    margin-bottom: 20px;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* עיצוב שם המחבר */
+#author {
+    font-size: 1.1em; /* 18px */
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* עיצוב הכפתור */
+#new-quote-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em; /* 16px */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* אפקט ריחוף (hover) על הכפתור */
+#new-quote-btn:hover {
+    background-color: #0056b3;
+}
