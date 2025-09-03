@@ -2,7 +2,7 @@
 const quoteDisplay = document.getElementById('quote');
 const authorDisplay = document.getElementById('author');
 const newQuoteBtn = document.getElementById('new-quote-btn');
-
+const copyBtn = document.getElementById('copy-btn');
 // מאגר הציטוטים שלנו - מערך של אובייקטים
 const quotes = [
     {
@@ -45,3 +45,23 @@ newQuoteBtn.addEventListener('click', displayNewQuote);
 
 // הצגת ציטוט ראשוני בעת טעינת הדף כדי שהמשתמש לא יראה דף ריק
 displayNewQuote();
+// Function to copy the current quote to the clipboard
+function copyQuote() {
+    // Get the text content of the quote (without the quotation marks)
+    const quoteText = quoteDisplay.textContent.slice(1, -1);
+
+    // Use the modern Navigator Clipboard API to write text
+    navigator.clipboard.writeText(quoteText).then(() => {
+        // Provide feedback to the user
+        copyBtn.textContent = 'הועתק!';
+        // Change it back after 2 seconds
+        setTimeout(() => {
+            copyBtn.textContent = 'העתק ציטוט';
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy text: ', err);
+    });
+}
+
+// Add event listener to the copy button
+copyBtn.addEventListener('click', copyQuote);
