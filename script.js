@@ -28,16 +28,29 @@ const quotes = [
 ];
 
 // פונקציה לבחירת והצגת ציטוט חדש
+// פונקציה לבחירת והצגת ציטוט חדש
 function displayNewQuote() {
     // 1. קבלת אינדקס אקראי מתוך מערך הציטוטים
     const randomIndex = Math.floor(Math.random() * quotes.length);
     
-    // 2. קבלת הציטוט והמחבר מהמערך באמצעות האינדקס האקראי
+    // 2. קבלת הציטוט והמחבר מהמערך
     const randomQuote = quotes[randomIndex];
     
-    // 3. הצגת הציטוט והמחבר באלמנטים המתאימים ב-HTML
+    // 3. הצגת הציטוט והמחבר באלמנטים המתאימים
     quoteDisplay.textContent = `"${randomQuote.text}"`;
     authorDisplay.textContent = `— ${randomQuote.author}`;
+
+    // 4. הפעלת האנימציה על ידי הסרה והוספה של הקלאס
+    // Remove class to allow re-triggering
+    quoteDisplay.classList.remove('animate-fade');
+    authorDisplay.classList.remove('animate-fade');
+    
+    // This is a small trick to force the browser to restart the animation
+    void quoteDisplay.offsetWidth; 
+    
+    // Add the class back to trigger the animation
+    quoteDisplay.classList.add('animate-fade');
+    authorDisplay.classList.add('animate-fade');
 }
 
 // הוספת "מאזין אירוע" לכפתור. הוא מפעיל את הפונקציה בכל לחיצה.
