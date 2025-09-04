@@ -3,19 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מחולל ציטוטים</title>
+    <title>מחולל הציטוטים המשופר</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&family=Miriam+Libre:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="quote-container">
-        <blockquote id="quote">
-            לחץ על הכפתור כדי לקבל ציטוט...
-        </blockquote>
-        <p id="author"></p>
+        <div id="category-filters"></div>
+        
+        <div class="quote-content">
+            <blockquote id="quote">
+                טוען ציטוט ראשון...
+            </blockquote>
+            <p id="author"></p>
+        </div>
+        
         <div class="buttons-container">
-           <button id="new-quote-btn">ציטוט חדש</button>
-           <button id="copy-btn">העתק ציטוט</button>
+            <button id="new-quote-btn">ציטוט חדש</button>
+            <a id="share-btn" href="#" target="_blank" title="שתף ב-X">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
         </div>
     </div>
 
