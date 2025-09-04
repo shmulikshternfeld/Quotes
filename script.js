@@ -1,80 +1,79 @@
-// בחירת האלמנטים מה-HTML ושמירתם במשתנים
-const quoteDisplay = document.getElementById('quote');
-const authorDisplay = document.getElementById('author');
-const newQuoteBtn = document.getElementById('new-quote-btn');
-const copyBtn = document.getElementById('copy-btn');
-// מאגר הציטוטים שלנו - מערך של אובייקטים
-const quotes = [
-    {
-        text: "הדרך היחידה לעשות עבודה נהדרת היא לאהוב את מה שאתה עושה.",
-        author: "סטיב ג'ובס"
-    },
-    {
-        text: "החיים הם מה שקורה לך בזמן שאתה עסוק בלתכנן תוכניות אחרות.",
-        author: "ג'ון לנון"
-    },
-    {
-        text: "הצלחה היא היכולת לעבור מכישלון לכישלון מבלי לאבד את ההתלהבות.",
-        author: "ווינסטון צ'רצ'יל"
-    },
-    {
-        text: "אל תשפוט כל יום לפי הקציר שקצרת, אלא לפי הזרעים שזרעת.",
-        author: "רוברט לואיס סטיבנסון"
-    },
-    {
-        text: "העתיד שייך לאלה המאמינים ביופיים של חלומותיהם.",
-        author: "אלינור רוזוולט"
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
+    const quoteDisplay = document.getElementById('quote');
+    const authorDisplay = document.getElementById('author');
+    const newQuoteBtn = document.getElementById('new-quote-btn');
+    const categoryFiltersContainer = document.getElementById('category-filters');
+    const shareBtn = document.getElementById('share-btn');
+    const quoteContent = document.querySelector('.quote-content');
+
+    // Quotes data with categories
+    const quotes = [
+        { text: "הדרך היחידה לעשות עבודה נהדרת היא לאהוב את מה שאתה עושה.", author: "סטיב ג'ובס", category: "השראה" },
+        { text: "החיים הם מה שקורה לך בזמן שאתה עסוק בלתכנן תוכניות אחרות.", author: "ג'ון לנון", category: "פילוסופיה" },
+        { text: "ההבדל בין טיפשות לגאונות הוא שלגאונות יש גבולות.", author: "אלברט איינשטיין", category: "הומור" },
+        { text: "טכנולוגיה היא כל דבר שלא היה קיים כשהיינו ילדים.", author: "אלן קיי", category: "טכנולוגיה" },
+        { text: "הצלחה היא היכולת לעבור מכישלון לכישלון מבלי לאבד את ההתלהבות.", author: "ווינסטון צ'רצ'יל", category: "השראה" },
+        { text: "ישנם שני דברים אינסופיים: היקום והטיפשות האנושית, ואני לא בטוח לגבי היקום.", author: "אלברט איינשטיין", category: "הומור" },
+        { text: "העתיד כבר כאן - הוא פשוט לא מופץ באופן שווה.", author: "ויליאם גיבסון", category: "טכנולוגיה" }
+    ];
+
+    let currentCategory = 'הכל';
+
+    // --- Functions ---
+
+    function createCategoryFilters() {
+        const categories = ['הכל', ...new Set(quotes.map(q => q.category))];
+        
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.className = 'filter-btn';
+            button.textContent = category;
+            if (category === currentCategory) {
+                button.classList.add('active');
+            }
+            button.addEventListener('click', () => {
+                currentCategory = category;
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                button.classList.add('active');
+                displayNewQuote();
+            });
+            categoryFiltersContainer.appendChild(button);
+        });
     }
-];
 
-// פונקציה לבחירת והצגת ציטוט חדש
-// פונקציה לבחירת והצגת ציטוט חדש
-function displayNewQuote() {
-    // 1. קבלת אינדקס אקראי מתוך מערך הציטוטים
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    
-    // 2. קבלת הציטוט והמחבר מהמערך
-    const randomQuote = quotes[randomIndex];
-    
-    // 3. הצגת הציטוט והמחבר באלמנטים המתאימים
-    quoteDisplay.textContent = `"${randomQuote.text}"`;
-    authorDisplay.textContent = `— ${randomQuote.author}`;
+    function displayNewQuote() {
+        // Filter quotes based on the current category
+        const filteredQuotes = currentCategory === 'הכל' 
+            ? quotes 
+            : quotes.filter(q => q.category === currentCategory);
 
-    // 4. הפעלת האנימציה על ידי הסרה והוספה של הקלאס
-    // Remove class to allow re-triggering
-    quoteDisplay.classList.remove('animate-fade');
-    authorDisplay.classList.remove('animate-fade');
-    
-    // This is a small trick to force the browser to restart the animation
-    void quoteDisplay.offsetWidth; 
-    
-    // Add the class back to trigger the animation
-    quoteDisplay.classList.add('animate-fade');
-    authorDisplay.classList.add('animate-fade');
-}
+        // Get a random quote from the filtered list
+        const randomQuote = filteredQuotes[Math.floor(Math.random() * filteredQuotes.length)];
 
-// הוספת "מאזין אירוע" לכפתור. הוא מפעיל את הפונקציה בכל לחיצה.
-newQuoteBtn.addEventListener('click', displayNewQuote);
+        // Update quote and author text
+        quoteDisplay.textContent = `"${randomQuote.text}"`;
+        authorDisplay.textContent = `— ${randomQuote.author}`;
 
-// הצגת ציטוט ראשוני בעת טעינת הדף כדי שהמשתמש לא יראה דף ריק
-displayNewQuote();
-// Function to copy the current quote to the clipboard
-function copyQuote() {
-    // Get the text content of the quote (without the quotation marks)
-    const quoteText = quoteDisplay.textContent.slice(1, -1);
+        // Update share button link
+        updateShareLink(randomQuote.text, randomQuote.author);
 
-    // Use the modern Navigator Clipboard API to write text
-    navigator.clipboard.writeText(quoteText).then(() => {
-        // Provide feedback to the user
-        copyBtn.textContent = 'הועתק!';
-        // Change it back after 2 seconds
-        setTimeout(() => {
-            copyBtn.textContent = 'העתק ציטוט';
-        }, 2000);
-    }).catch(err => {
-        console.error('Failed to copy text: ', err);
-    });
-}
+        // Trigger animation
+        quoteContent.classList.remove('animate-fade');
+        void quoteContent.offsetWidth; // Force reflow
+        quoteContent.classList.add('animate-fade');
+    }
 
-// Add event listener to the copy button
-copyBtn.addEventListener('click', copyQuote);
+    function updateShareLink(text, author) {
+        const tweetText = encodeURIComponent(`"${text}" — ${author}`);
+        shareBtn.href = `https://twitter.com/intent/tweet?text=${tweetText}`;
+    }
+
+    // --- Initial Setup ---
+
+    createCategoryFilters();
+    displayNewQuote();
+
+    // Event Listeners
+    newQuoteBtn.addEventListener('click', displayNewQuote);
+});

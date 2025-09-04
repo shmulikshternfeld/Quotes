@@ -1,87 +1,144 @@
-/* עיצוב כללי לדף */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&family=Miriam+Libre:wght@700&display=swap');
+
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Animated Gradient Background */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
+    font-family: 'Heebo', sans-serif;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
 }
 
-/* עיצוב הקונטיינר הראשי של הציטוט */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Glassmorphism Card Effect */
 #quote-container {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 35px 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    max-width: 700px;
     width: 90%;
     text-align: center;
 }
 
-/* עיצוב הטקסט של הציטוט */
-#quote {
-    font-size: 1.5em; /* 24px */
-    margin-bottom: 20px;
-    font-style: italic;
-    line-height: 1.4;
-}
-
-/* עיצוב שם המחבר */
-#author {
-    font-size: 1.1em; /* 18px */
-    font-weight: bold;
-    color: #555;
+/* Category Filters */
+#category-filters {
     margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
 }
 
-/* עיצוב הכפתור */
-#new-quote-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 1em; /* 16px */
-    border-radius: 5px;
+.filter-btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 15px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
 }
 
-/* אפקט ריחוף (hover) על הכפתור */
-#new-quote-btn:hover {
-    background-color: #0056b3;
+.filter-btn:hover, .filter-btn.active {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
 }
-/* Container for the buttons */
+
+/* Quote Text Styling */
+#quote {
+    font-family: 'Miriam Libre', serif;
+    font-size: 2em; /* 32px */
+    margin-bottom: 20px;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+#author {
+    font-size: 1.2em;
+    font-style: italic;
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+/* Buttons Container */
 .buttons-container {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Adds space between the buttons */
-    margin-top: 25px;
+    align-items: center;
+    gap: 20px;
 }
 
-/* Style for the new copy button */
-#copy-btn {
-    background-color: #6c757d; /* A different color */
+#new-quote-btn, #share-btn {
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-#copy-btn:hover {
-    background-color: #5a6268;
+#new-quote-btn {
+    background-color: #ffffff;
+    color: #e73c7e;
+    padding: 12px 28px;
+    font-size: 1.1em;
+    font-weight: bold;
 }
-/* Animation keyframes for fading in */
-@keyframes fadeIn {
+
+#share-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 1.2em;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+#new-quote-btn:hover, #share-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#new-quote-btn:active, #share-btn:active {
+    transform: scale(0.98); /* Press down effect */
+}
+
+
+/* Advanced Fade-in and slide-up animation */
+.quote-content.animate-fade {
+    animation: fadeInSlideUp 0.7s ease-out forwards;
+}
+
+@keyframes fadeInSlideUp {
     from {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* A class that applies the animation */
-.animate-fade {
-    animation: fadeIn 0.6s ease-out;
 }
